@@ -24,17 +24,30 @@ public class GreetingController {
 
     @GetMapping
     public String main(Map<String, Object> model) {
-        Iterable<Message> messageList = messageRepository.findAll();
+        final Iterable<Message> messageList = messageRepository.findAll();
         model.put("messages", messageList);
         return "main";
     }
 
     @PostMapping
     public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
-        Message message = new Message(text, tag);
+        final Message message = new Message(text, tag);
         messageRepository.save(message);
-        Iterable<Message> messageList = messageRepository.findAll();
+        final Iterable<Message> messageList = messageRepository.findAll();
         model.put("messages", messageList);
+        return "main";
+    }
+
+    @PostMapping("/filter")
+    public String filter(@RequestParam String filter, Map<String, Object> model) {
+        final Iterable<Message> messages;
+
+        if (filter != null && !filter.isEmpty()) {
+            messages = messageRepository.findByTag(filter);
+        } else {
+            messages = messageRepository.findAll();
+        }
+        model.put("messages", messages);
         return "main";
     }
 }
