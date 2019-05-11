@@ -1,4 +1,4 @@
-package inc.myself.fo;
+package inc.myself.fo.controller;
 
 import inc.myself.fo.domain.Message;
 import inc.myself.fo.repos.MessageRepository;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Map;
 
 @Controller
-public class GreetingController {
+public class MainController {
 
     @Autowired
     private MessageRepository messageRepository;
