@@ -30,9 +30,9 @@ public class RegistrationController {
             map.put("message", "User exists!");
             return "registration";
         }
-        
-        foundUser.setActive(true);
-        foundUser.setRoles(Collections.singleton(Role.USER));
+
+        user.setActive(true);
+        user.setRoles(Collections.singleton(Role.USER));
         userRepo.save(user);
 
         return "redirect:/login";
