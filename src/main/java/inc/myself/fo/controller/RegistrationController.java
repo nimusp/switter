@@ -30,7 +30,6 @@ public class RegistrationController {
             model.addAttribute("message", "User exists!");
             return "registration";
         }
-        model.addAttribute("message", "");
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         userRepo.save(user);
