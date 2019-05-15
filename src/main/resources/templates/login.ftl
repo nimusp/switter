@@ -2,7 +2,5 @@
 <#import "parts/login.ftl" as loginForm>
 
 <@common.page>
-Login page
-<@loginForm.login "/login" />
-<a href="/registration">Add new user</a>
+<@loginForm.login "/login" false/>
 </@common.page>
