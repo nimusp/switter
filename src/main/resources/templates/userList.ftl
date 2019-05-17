@@ -13,11 +13,16 @@ List of users
     </thead>
     <tbody>
     <#list users as user>
+    <table cellpadding="5">
+        <col width="150" valign="top">
+        <col width="150" valign="top">
+        <col width="50" valign="top">
         <tr>
             <td>${user.username}</td>
             <td><#list user.roles as role>${role}<#sep>, </#list></td>
             <td><a href="/user/${user.id}">edit</a> </td>
         </tr>
+    </table>
     </#list>
     </tbody>
 </table>
