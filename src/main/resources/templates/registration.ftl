@@ -3,6 +3,6 @@
 
 <@common.page>
 <div class="mb-1">Add new user</div>
-${message?ifExists}
+${userError?ifExists}
 <@loginForm.login "/registration" true/>
 </@common.page>
