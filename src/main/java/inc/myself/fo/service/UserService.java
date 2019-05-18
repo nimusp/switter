@@ -4,6 +4,8 @@ import inc.myself.fo.domain.Role;
 import inc.myself.fo.domain.User;
 import inc.myself.fo.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,7 +29,8 @@ public class UserService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+    @NonNull
+    public UserDetails loadUserByUsername(@NonNull final String username) throws UsernameNotFoundException {
         final User user = userRepo.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -35,7 +38,8 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean addUser(final User user) {
+    @NonNull
+    public boolean addUser(@NonNull final User user) {
         final User foundUser = userRepo.findByUsername(user.getUsername());
         if (foundUser != null) {
             return false;
@@ -51,7 +55,8 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public boolean activateUser(final String code) {
+    @NonNull
+    public boolean activateUser(@NonNull final String code) {
         final User user = userRepo.findByActivationCode(code);
 
         if (user == null) {
@@ -64,11 +69,12 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
+    @Nullable
     public List<User> findAll() {
         return userRepo.findAll();
     }
 
-    public void saveUser(final Long userId, final String username, final Map<String, String> form) {
+    public void saveUser(@NonNull final Long userId, @NonNull final String username, @NonNull final Map<String, String> form) {
         final User user = userRepo.findById(userId).get();
         user.setUsername(username);
 
@@ -87,11 +93,12 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public User findById(Long userId) {
+    @Nullable
+    public User findById(@NonNull Long userId) {
         return userRepo.findById(userId).get();
     }
 
-    public void updateProfile(final User user, final String email, final String password) {
+    public void updateProfile(@NonNull final User user, @NonNull final String email, @NonNull final String password) {
         final String userEmail = user.getEmail();
 
         final boolean isEmailChanged = email != null && !email.equals(userEmail) ||
@@ -112,7 +119,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    private void sendActivationMessage(final User user) {
+    private void sendActivationMessage(@NonNull final User user) {
         if (!StringUtils.isEmpty(user.getEmail())) {
             final String message = String.format(
                     "Hello, %s!\n" +
